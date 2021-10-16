@@ -2,9 +2,9 @@
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getMonth()+1+'.'+ d.getDate()+'.'+ d.getFullYear();
 //store openWeatherMap API Key
-const apiKey = "01f48274863c31c819774d76e555d94b";
+const apiKey = "01f48274863c31c819774d76e555d94b&units=metric";
 
 const generateBtn = document.querySelector('#generate');
 generateBtn.addEventListener('click', async () => {
@@ -34,6 +34,7 @@ generateBtn.addEventListener('click', async () => {
 //function to get temperature from OpenWeatherMap API 
 async function getWeather(zipCode){    
     const fullUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${apiKey}`;
+    
     const res = await fetch(fullUrl); 
     const data = await res.json();    
     const temp = data.main.temp;
@@ -66,6 +67,6 @@ async function getData(){
 //assign the fetched data to the div in the bottom of 'index.html' 
 async function updateUI(finalData){
     document.querySelector('#date').innerText = `Date: ${finalData.date}`;
-    document.querySelector('#temp').innerText = `Temperature: ${finalData.temp}`;
+    document.querySelector('#temp').innerText = `Temperature: ${finalData.temp} (C)`;
     document.querySelector('#content').innerText = `Feelings: ${finalData.content}`;
 }
